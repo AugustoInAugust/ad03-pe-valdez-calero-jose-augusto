@@ -9,6 +9,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { ItemsModule } from './modules/items/items.module';
 import { itemReducer } from './modules/items/store/reducers/item.reducer';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { itemReducer } from './modules/items/store/reducers/item.reducer';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     ItemsModule,
     StoreModule.forRoot({ items: itemReducer }),
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

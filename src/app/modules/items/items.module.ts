@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ItemCardComponent } from './components/item-card/item-card.component';
 import { ItemsComponent } from './items.component';
 import { ItemsRoutingModule } from './items-routing.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,9 @@ import { ItemsRoutingModule } from './items-routing.module';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     ItemsRoutingModule,
+
   ]
 })
 export class ItemsModule { }
