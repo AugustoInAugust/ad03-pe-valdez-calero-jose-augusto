@@ -20,14 +20,14 @@ export const MOCK_ITEMS: Item[] = [
   {
     id: '3',
     title: 'Diseñar landing page',
-    description: 'Diseño responsivo con Angular, animaciones sutiles y llamada a la acción clara para usuarios nuevos.',
+    description: 'Diseño responsivo con Angular, animaciones sutiles y llamada a la acción clara para usuarios nuevoooooooooooooooooooooooooooooooooooooooos.',
     status: ItemStatusEnum.FULLSTACK,
     creation_date: '2025-05-18T12:45:00Z',
   },
   {
     id: '4',
     title: 'Implementar CI/CD',
-    description: 'Configurar pipelines en GitHub Actions para pruebas y despliegues automáticos.Configurar pipelines en GitHub Actions para pruebas y despliegues automáticos.Configurar pipelines en GitHub Actions para pruebas y despliegues automáticos.Configurar pipelines en GitHub Actions para pruebas y despliegues automáticos.Configurar pipelines en GitHub Actions para pruebas y despliegues automáticos.Configurar pipelines en GitHub Actions para pruebas y despliegues automáticos.Configurar pipelines en GitHub Actions para pruebas y despliegues automáticos.Configurar pipelines en GitHub Actions para pruebas y despliegues automáticos.Configurar pipelines en GitHub Actions para pruebas y despliegues automáticos.Configurar pipelines en GitHub Actions para pruebas y despliegues automáticos.Configurar pipelines en GitHub Actions para pruebas y despliegues automáticos.Configurar pipelines en GitHub Actions para pruebas y despliegues automáticos.Configurar pipelines en GitHub Actions para pruebas y despliegues automáticos.Configurar pipelines en GitHub Actions para pruebas y despliegues automáticos.Configurar pipelines en GitHub Actions para pruebas y despliegues automáticos.',
+    description: 'Configurar pipelines en GitHub Actions para pruebas y despliegues automáticos.',
     status: ItemStatusEnum.DEV_OPS,
     creation_date: '2025-05-12T08:00:00Z',
   },

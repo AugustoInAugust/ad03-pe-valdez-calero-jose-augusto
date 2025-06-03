@@ -15,7 +15,8 @@ export const itemReducer = createReducer(
   }),
 
   on(ItemActions.addItem, (state, { item }) => {
-    const updated = [...state.items, item];
+    const fullItem = { ...item, id: Date.now().toString() };
+    const updated = [...state.items, fullItem];
     updateLocalStorage(updated);
     return { ...state, items: updated };
   }),
