@@ -9,15 +9,20 @@
     [(ngModel)]="searchTerm"
     (input)="onSearch()"
   />
-  <img class="mglass-icon" src="assets/icons/magnifying-glass.svg" alt="Search" />
+  <img
+    class="mglass-icon"
+    src="assets/icons/magnifying-glass.svg"
+    alt="Search"
+  />
 </div>
-
-<app-item-card
-  *ngFor="let item of filteredItems"
-  [item]="item"
-  [selected]="selectedItems.has(item.id)"
-  (toggleSelect)="onToggleSelect($event)"
-  (clicked)="onItemClicked($event)"
-  (deleted)="onDelete($event)"
->
-</app-item-card>
+<section class="item-list">
+  <app-item-card
+    *ngFor="let item of filteredItems"
+    [item]="item"
+    [selected]="selectedItems.has(item.id)"
+    (toggleSelect)="onToggleSelect($event)"
+    (clicked)="onItemClicked($event)"
+    (deleted)="onDelete($event)"
+  >
+  </app-item-card>
+</section>

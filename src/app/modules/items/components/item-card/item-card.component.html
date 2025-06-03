@@ -16,10 +16,11 @@
       {{ item.description }}
     </p>
     <p class="date">
+      <span class="date-label">{{ item.update_date ? "updated: " : "created: " }}</span>
       {{
         item.update_date
-          ? "updated: " + (item.update_date | date : "yyyy*MM*dd HH|mm|ss")
-          : "created: " + (item.creation_date | date : "yyyy*MM*dd HH|mm|ss")
+          ? (item.update_date | date : "yyyy*MM*dd HH|mm|ss")
+          : (item.creation_date | date : "yyyy*MM*dd HH|mm|ss")
       }}
     </p>
   </div>
