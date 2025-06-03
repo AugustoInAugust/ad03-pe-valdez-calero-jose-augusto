@@ -1,0 +1,40 @@
+<div class="card" (click)="onClick()">
+  <div class="left-shadow"></div>
+  <label class="checkbox-circle">
+    <input
+      type="checkbox"
+      [checked]="selected"
+      (click)="onToggleSelect($event)"
+    />
+    <span class="checkmark"></span>
+  </label>
+
+  <div class="content">
+    <h3 class="title">{{ item.title }}</h3>
+    <p class="description" [title]="item.description">
+      {{ item.description }}
+    </p>
+    <p class="date">
+      <span *ngIf="!item.update_date"
+        >created: {{ item.creation_date | date : "YYYY*MM*dd HH|mm|ss" }}</span
+      >
+      <span *ngIf="item.update_date"
+        >updated: {{ item.update_date | date : "YYYY*MM*dd HH|mm|ss" }}</span
+      >
+    </p>
+  </div>
+
+  <div class="status-trash">
+    <span class="status-chip" [ngClass]="statusColors[item.status]">{{
+      item.status
+    }}</span>
+    <img
+      src="assets/icons/trash.svg"
+      alt="Delete"
+      class="trash-icon"
+      width="10px"
+      height="10px"
+      (click)="onDelete($event)"
+    />
+  </div>
+</div>
