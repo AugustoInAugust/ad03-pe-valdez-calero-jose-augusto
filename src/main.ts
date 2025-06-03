@@ -12,4 +12,5 @@ if (environment.production) {
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
 
-localStorage.setItem('items', JSON.stringify(MOCK_ITEMS));
+const items = localStorage.getItem('items');
+if (!items) localStorage.setItem('items', JSON.stringify(MOCK_ITEMS));
