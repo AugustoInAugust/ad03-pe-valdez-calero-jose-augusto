@@ -5,6 +5,7 @@ import { Item, ItemState } from 'src/app/core/interfaces/item.interface';
 import { selectAllItems } from './store/selectors/item.selectors';
 import { deleteItem, loadItems } from './store/actions/item.actions';
 import { takeUntil } from 'rxjs/operators';
+import { ItemsService } from './services/items.service';
 @Component({
   selector: 'app-items',
   templateUrl: './items.component.html',
@@ -17,17 +18,19 @@ export class ItemsComponent implements OnInit {
   public showModal: boolean = false;
   public modalHeader: string = '';
   public selectedItem?: Item;
-
-  public selectedItems = new Set<string>();
-  public selectedItems$ = new BehaviorSubject<Set<string>>(this.selectedItems);
+  public selectedItems: Item[] = [];
 
   private items$: Observable<Item[]> = this.store.select(selectAllItems);
   private destroy$ = new Subject<void>();
 
-  constructor(private store: Store<ItemState>) { }
+  constructor(
+    private store: Store<ItemState>,
+    private itemsService: ItemsService
+  ) { }
 
   ngOnInit(): void {
     this.loadItemsData();
+    this.waitForItemsSelection();
   }
 
   ngOnDestroy() {
@@ -36,18 +39,22 @@ export class ItemsComponent implements OnInit {
   }
 
   public onToggleSelect(item: Item) {
-    if (this.selectedItems.has(item.id)) {
-      this.selectedItems.delete(item.id);
-    } else {
-      this.selectedItems.add(item.id);
-    }
-    this.selectedItems$.next(new Set(this.selectedItems));
+    const index = this.selectedItems.findIndex(i => i.id === item.id);
+    index > -1 ? this.selectedItems.splice(index, 1) : this.selectedItems.push(item);
+
+    this.itemsService.setSelectedData(this.selectedItems);
   }
 
-  public onItemClicked(item: Item) {
+  public onUpdateItem(item: Item) {
     this.showModal = true;
     this.modalHeader = 'Update Item';
     this.selectedItem = item;
+  }
+
+  public onCreateItem() {
+    this.selectedItem = undefined;
+    this.showModal = true;
+    this.modalHeader = 'Create Item';
   }
 
   public onDelete(item: Item) {
@@ -58,6 +65,12 @@ export class ItemsComponent implements OnInit {
     this.applyFilter();
   }
 
+  public onShareItems() {
+    console.log('Selected items to share:', this.selectedItems);
+    this.selectedItems = [];
+    this.itemsService.setSelectedData(this.selectedItems);
+  }
+
   public clearSearch() {
     this.searchTerm = '';
     this.applyFilter();
@@ -66,6 +79,10 @@ export class ItemsComponent implements OnInit {
   public hideModal() {
     this.selectedItem = undefined;
     this.showModal = false;
+  }
+
+  public isItemSelected(item: Item): boolean {
+    return this.selectedItems.some(selected => selected.id === item.id);
   }
 
   private loadItemsData() {
@@ -83,5 +100,11 @@ export class ItemsComponent implements OnInit {
   private applyFilter() {
     const term = this.searchTerm.toLowerCase();
     this.filteredItems = this.items.filter(({ title, description }) => title.toLowerCase().includes(term) || description.toLowerCase().includes(term));
+  }
+
+  private waitForItemsSelection() {
+    this.itemsService.getSelectedData()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(selections => this.selectedItems = selections);
   }
 }

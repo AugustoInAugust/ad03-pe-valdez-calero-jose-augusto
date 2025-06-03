@@ -21,15 +21,34 @@
     <app-item-card
       *ngFor="let item of filteredItems"
       [item]="item"
-      [selected]="selectedItems.has(item.id)"
+      [selected]="isItemSelected(item)"
       (toggleSelect)="onToggleSelect($event)"
-      (clicked)="onItemClicked($event)"
+      (clicked)="onUpdateItem($event)"
       (deleted)="onDelete($event)"
     >
     </app-item-card>
   </section>
 
   <app-modal [header]="modalHeader" [visible]="showModal" (close)="hideModal()">
-    <app-item-form [item]="selectedItem" (submitted)="hideModal()"></app-item-form>
+    <app-item-form
+      [item]="selectedItem"
+      (submitted)="hideModal()"
+    ></app-item-form>
   </app-modal>
+
+  <app-floating-button
+    iconSrc="assets/icons/add.svg"
+    [index]="0"
+    (clicked)="onCreateItem()"
+  >
+  </app-floating-button>
+
+  <app-floating-button
+    *ngIf="this.selectedItems.length >= 1"
+    [badge]="this.selectedItems.length"
+    iconSrc="assets/icons/share.svg"
+    [index]="1"
+    (clicked)="onShareItems()"
+  >
+  </app-floating-button>
 </section>
