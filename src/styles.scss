@@ -1,1 +1,45 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --primary-color: #acacac;
+  --secondary-color: #212226;
+  --primary-font-color: white;
+  --secondary-font-color: #636365;
+
+  --blue-color: #3b82f6;
+  --red-color: #ef4444;
+  --orange-color: #f59e0b;
+  --light-green-color: #22c55e;
+  --green-color: #10b981;
+  --purple-color: #8b5cf6;
+  --pink-color: #ec4899;
+  --semi-black-color: #1a1b1f;
+}
+
+body {
+  background-color: #000002;
+  color: var(--primary-font-color);
+  font-family: sans-serif;
+}
+
+.bg-color-blue {
+  background-color: var(--blue-color);
+}
+
+.bg-color-red {
+  background-color: var(--red-color);
+}
+
+.bg-color-orange {
+  background-color: var(--orange-color);
+}
+
+.bg-color-green {
+  background-color: var(--green-color);
+}
+
+.bg-color-purple {
+  background-color: var(--purple-color);
+}
+
+.bg-color-pink {
+  background-color: var(--pink-color);
+}
