@@ -7,6 +7,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { ItemsModule } from './modules/items/items.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     EffectsModule.forRoot([]),
     StoreModule.forRoot({}, {}),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    ItemsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
