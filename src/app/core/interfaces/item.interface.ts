@@ -8,3 +8,7 @@ export interface Item {
   creation_date: string;
   update_date?: string;
 }
+
+export interface ItemState {
+  items: Item[];
+}

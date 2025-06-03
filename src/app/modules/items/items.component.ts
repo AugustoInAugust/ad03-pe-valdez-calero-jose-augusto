@@ -1,41 +1,58 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { MOCK_ITEMS } from 'src/app/core/constants/items';
+import { Store } from '@ngrx/store';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Item } from 'src/app/core/interfaces/item.interface';
-
+import { selectAllItems } from './store/selectors/item.selectors';
+import { deleteItem, loadItems } from './store/actions/item.actions';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-items',
   templateUrl: './items.component.html',
   styleUrls: ['./items.component.scss']
 })
 export class ItemsComponent implements OnInit {
-  //items: Item[] = []; // carga inicial o mock
-  items: Item[] = MOCK_ITEMS; // carga inicial o mock
-  selectedItems = new Set<string>();
-  selectedItems$ = new BehaviorSubject<Set<string>>(this.selectedItems);
-  
-  constructor() { }
+  public items: Item[] = [];
+  public selectedItems = new Set<string>();
+  public selectedItems$ = new BehaviorSubject<Set<string>>(this.selectedItems);
+
+  private items$: Observable<Item[]> = this.store.select(selectAllItems);
+  private destroy$ = new Subject<void>();
+
+  constructor(private store: Store<any>) { }
 
   ngOnInit(): void {
+    this.loadItemsData();
   }
 
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
-  onToggleSelect(id: string) {
-    if (this.selectedItems.has(id)) {
-      this.selectedItems.delete(id);
+  public onToggleSelect(item: Item) {
+    if (this.selectedItems.has(item.id)) {
+      this.selectedItems.delete(item.id);
     } else {
-      this.selectedItems.add(id);
+      this.selectedItems.add(item.id);
     }
     this.selectedItems$.next(new Set(this.selectedItems));
   }
 
-  onItemClicked(id: string) {
-    console.log('Card clicked:', id);
-    // abrir modal editar
+  public onItemClicked(item: Item) {
+    console.log('Card clicked:', item);
+
   }
 
-  onDelete(id: string) {
-    console.log('Delete item:', id);
-    // eliminar item de lista
+  public onDelete(item: Item) {
+    if (item) {
+      this.store.dispatch(deleteItem({ id: item.id }));
+    }
+  }
+
+  private loadItemsData() {
+    this.store.dispatch(loadItems());
+    this.items$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((items) => this.items = items);
   }
 }

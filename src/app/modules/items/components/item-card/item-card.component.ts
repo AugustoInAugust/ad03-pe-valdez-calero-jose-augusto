@@ -11,9 +11,9 @@ export class ItemCardComponent implements OnInit {
   @Input() item!: Item;
   @Input() selected = false;
   
-  @Output() toggleSelect = new EventEmitter<string>();
-  @Output() clicked = new EventEmitter<string>();
-  @Output() deleted = new EventEmitter<string>();
+  @Output() toggleSelect = new EventEmitter<Item>();
+  @Output() clicked = new EventEmitter<Item>();
+  @Output() deleted = new EventEmitter<Item>();
 
   public statusColors: Record<ItemStatusEnum, string> = {
     FrontEnd: 'bg-color-blue',
@@ -30,15 +30,15 @@ export class ItemCardComponent implements OnInit {
 
   public onToggleSelect(event: Event) {
     event.stopPropagation();
-    this.toggleSelect.emit(this.item.id);
+    this.toggleSelect.emit(this.item);
   }
 
   public onClick() {
-    this.clicked.emit(this.item.id);
+    this.clicked.emit(this.item);
   }
 
   public onDelete(event: Event) {
     event.stopPropagation();
-    this.deleted.emit(this.item.id);
+    this.deleted.emit(this.item);
   }
 }

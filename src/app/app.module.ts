@@ -8,6 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { ItemsModule } from './modules/items/items.module';
+import { itemReducer } from './modules/items/store/reducers/item.reducer';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ItemsModule } from './modules/items/items.module';
     EffectsModule.forRoot([]),
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    ItemsModule
+    ItemsModule,
+    StoreModule.forRoot({ items: itemReducer }),
   ],
   providers: [],
   bootstrap: [AppComponent]
