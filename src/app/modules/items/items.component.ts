@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { Item } from 'src/app/core/interfaces/item.interface';
+import { Item, ItemState } from 'src/app/core/interfaces/item.interface';
 import { selectAllItems } from './store/selectors/item.selectors';
 import { deleteItem, loadItems } from './store/actions/item.actions';
 import { takeUntil } from 'rxjs/operators';
@@ -12,13 +12,16 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class ItemsComponent implements OnInit {
   public items: Item[] = [];
+  public searchTerm: string = '';
+  public filteredItems: Item[] = [];
+
   public selectedItems = new Set<string>();
   public selectedItems$ = new BehaviorSubject<Set<string>>(this.selectedItems);
 
   private items$: Observable<Item[]> = this.store.select(selectAllItems);
   private destroy$ = new Subject<void>();
 
-  constructor(private store: Store<any>) { }
+  constructor(private store: Store<ItemState>) { }
 
   ngOnInit(): void {
     this.loadItemsData();
@@ -40,19 +43,35 @@ export class ItemsComponent implements OnInit {
 
   public onItemClicked(item: Item) {
     console.log('Card clicked:', item);
-
   }
 
   public onDelete(item: Item) {
-    if (item) {
-      this.store.dispatch(deleteItem({ id: item.id }));
-    }
+    if (item) this.store.dispatch(deleteItem({ id: item.id }));
+  }
+
+  public clearSearch() {
+    this.searchTerm = '';
+    this.applyFilter();
+  }
+
+  public onSearch() {
+    this.applyFilter();
   }
 
   private loadItemsData() {
     this.store.dispatch(loadItems());
     this.items$
       .pipe(takeUntil(this.destroy$))
-      .subscribe((items) => this.items = items);
+      .subscribe((items) => this.refreshItems(items));
+  }
+
+  private refreshItems(items: Item[]) {
+    this.items = items;
+    this.applyFilter();
+  }
+
+  private applyFilter() {
+    const term = this.searchTerm.toLowerCase();
+    this.filteredItems = this.items.filter(({ title, description }) => title.toLowerCase().includes(term) || description.toLowerCase().includes(term));
   }
 }

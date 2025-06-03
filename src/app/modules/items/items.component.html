@@ -1,5 +1,19 @@
+<div class="search-container">
+  <button *ngIf="searchTerm" class="clear-btn" (click)="clearSearch()">
+    ×
+  </button>
+  <input
+    type="text"
+    class="search-input"
+    placeholder="Search..."
+    [(ngModel)]="searchTerm"
+    (input)="onSearch()"
+  />
+  <img class="mglass-icon" src="assets/icons/magnifying-glass.svg" alt="Search" />
+</div>
+
 <app-item-card
-  *ngFor="let item of items"
+  *ngFor="let item of filteredItems"
   [item]="item"
   [selected]="selectedItems.has(item.id)"
   (toggleSelect)="onToggleSelect($event)"
