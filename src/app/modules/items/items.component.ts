@@ -14,6 +14,9 @@ export class ItemsComponent implements OnInit {
   public items: Item[] = [];
   public searchTerm: string = '';
   public filteredItems: Item[] = [];
+  public showModal: boolean = false;
+  public modalHeader: string = '';
+  public selectedItem?: Item;
 
   public selectedItems = new Set<string>();
   public selectedItems$ = new BehaviorSubject<Set<string>>(this.selectedItems);
@@ -42,11 +45,17 @@ export class ItemsComponent implements OnInit {
   }
 
   public onItemClicked(item: Item) {
-    console.log('Card clicked:', item);
+    this.showModal = true;
+    this.modalHeader = 'Update Item';
+    this.selectedItem = item;
   }
 
   public onDelete(item: Item) {
     if (item) this.store.dispatch(deleteItem({ id: item.id }));
+  }
+
+  public onSearch() {
+    this.applyFilter();
   }
 
   public clearSearch() {
@@ -54,8 +63,9 @@ export class ItemsComponent implements OnInit {
     this.applyFilter();
   }
 
-  public onSearch() {
-    this.applyFilter();
+  public hideModal() {
+    this.selectedItem = undefined;
+    this.showModal = false;
   }
 
   private loadItemsData() {

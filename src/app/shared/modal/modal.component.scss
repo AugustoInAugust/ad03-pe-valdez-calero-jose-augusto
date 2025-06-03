@@ -14,7 +14,7 @@
 .modal-content {
   background-color: var(--secondary-color);
   border-radius: 0.75rem;
-  width: 90%;
+  width: 100%;
   padding: 1rem 3rem;
   max-width: 500px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
@@ -25,7 +25,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 0rem;
+  padding-bottom: 1rem;
   border-bottom: 1px solid var(--secondary-font-color);
   color: var(--primary-color);
 
