@@ -1,0 +1,11 @@
+<button
+  class="floating-btn"
+  [ngStyle]="{ bottom: calcBottomOffset() }"
+  (click)="onClick()"
+>
+  <img *ngIf="iconSrc" [src]="iconSrc" alt="icon" class="icon" />
+
+  <span *ngIf="badge !== undefined && badge !== null" class="badge">
+    {{ badge }}
+  </span>
+</button>

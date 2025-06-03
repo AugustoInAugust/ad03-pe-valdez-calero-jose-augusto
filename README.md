@@ -1,27 +1,54 @@
-# Ad03PeValdezCaleroJoseAugusto
+# Project: AD03 - PE - Valdez Calero José Augusto
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.18.
 
-## Development server
+## 📦 Prerequisites
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+- Node.js v16.x (recommended to use NVM for version management)
+- Angular CLI installed globally (`npm install -g @angular/cli`)
+- Git
 
-## Code scaffolding
+## ⚙️ Initial Setup
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+After cloning the repository, install dependencies by running:
 
-## Build
+```
+npm install
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Node.js version issues
 
-## Running unit tests
+If `ng serve` doesn't work due to an incompatible Node.js version, you can fix it using NVM:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```
+# Install NVM (if not already installed)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 
-## Running end-to-end tests
+# Load NVM in the current terminal
+export NVM_DIR="$HOME/.nvm"
+source "$NVM_DIR/nvm.sh"
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+# Install and use Node.js 16.20.2
+nvm install 16.20.2
+nvm use 16.20.2
+```
 
-## Further help
+## 🚀 Development Server
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Run the following command to start the dev server:
+
+```
+ng serve
+```
+
+Navigate to [http://localhost:4200](http://localhost:4200). The app will automatically reload if you change any source files.
+
+## 🛠 Build
+
+To build the project:
+
+```
+ng build
+```
+
+The build artifacts will be stored in the `dist/` directory.

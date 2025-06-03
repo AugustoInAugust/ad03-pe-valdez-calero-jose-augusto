@@ -1,0 +1,33 @@
+<form [formGroup]="itemForm" (ngSubmit)="onSubmit()" class="item-form">
+  <input
+    type="text"
+    class="form-field"
+    formControlName="title"
+    placeholder="Title"
+    maxlength="50"
+  />
+
+  <input
+    type="text"
+    class="form-field"
+    formControlName="description"
+    placeholder="Description"
+    maxlength="500"
+  />
+
+  <select formControlName="status" class="form-field">
+    <option value="" disabled>Select status</option>
+    <option
+      *ngFor="let status of itemStatusEnum | enumToArray"
+      [value]="status.value"
+    >
+      {{ status.value }}
+    </option>
+  </select>
+
+  <div class="actions">
+    <button type="submit" class="save-btn" [disabled]="itemForm.invalid">
+      Save
+    </button>
+  </div>
+</form>
