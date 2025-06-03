@@ -1,0 +1,9 @@
+<app-item-card
+  *ngFor="let item of items"
+  [item]="item"
+  [selected]="selectedItems.has(item.id)"
+  (toggleSelect)="onToggleSelect($event)"
+  (clicked)="onItemClicked($event)"
+  (deleted)="onDelete($event)"
+>
+</app-item-card>
